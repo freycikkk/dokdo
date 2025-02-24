@@ -10,6 +10,7 @@ import fetch from 'node-fetch'
 import * as Utils from './utils'
 import * as Commands from './commands'
 import { cat, curl, exec, js, jsi, main, shard } from './commands'
+import { ClusterClient } from "discord-hybrid-sharding";
 
 export interface DokdoOptions {
   aliases?: string[];
@@ -44,7 +45,7 @@ class Dokdo {
    * @param client Discord Client
    * @param options Dokdo Options
    */
-  public constructor (public client: Client, public options: DokdoOptions) {
+  public constructor (public client: Client & { cluster?: ClusterClient }, public options: DokdoOptions) {
     if (!(client instanceof Client)) { throw new TypeError('Invalid `client`. `client` parameter is required.') }
 
     // if (!this.options || typeof options !== 'object') throw new Error('Invliad `options`. `options` parameter is required.')
